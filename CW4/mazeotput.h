@@ -5,6 +5,7 @@
 
 void output_TXT(char * mazeArray, PAR * par, const char * name);
 void output_PNG(char * mazeArray, PAR * par, const char * name);
+void output_PNG_HQ(char * mazeArray, PAR * par, const char * name);
 
 #endif // !__MAZEOUTPUT_
 

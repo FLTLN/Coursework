@@ -9,8 +9,8 @@ int main(int argc, char *argv[])
 	srand(time(NULL));
 	PAR maze_par;
 
-	maze_par.W = 50;
-	maze_par.H = 50;
+	maze_par.W = 100;
+	maze_par.H = 100;
 
 	maze_par.max_W = 10;
 	maze_par.max_H = 10;
@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
 
 	output_TXT(mazeArray, &maze_par, "maze.txt");
 	output_PNG(mazeArray, &maze_par, "test.png");
+	output_PNG_HQ(mazeArray, &maze_par, "test_hq.png");
 
 	//printf_s("%d\n", maze_par.rooms_quantity);
 	//printf_s("%d\n", maze_par.max_quantity_on_x);
