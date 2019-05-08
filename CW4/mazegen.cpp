@@ -248,6 +248,8 @@ void link_Rooms(PAR * par)
 		room->RN_R = 0;
 		room->LN_R = 0;
 
+		room->not_wisited = 1;
+
 		printf_s("room %d linked with:\n", room->number);
 		printf_s("room %d as a right neihbour\n", room->LN_N);
 		printf_s("room %d as a left neihbour\n", room->RN_N);

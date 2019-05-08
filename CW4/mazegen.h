@@ -25,6 +25,7 @@ typedef struct room
 	unsigned char RN_R:1;
 
 	unsigned int with_road;
+	unsigned int not_wisited;
 
 
 	room * next_room;

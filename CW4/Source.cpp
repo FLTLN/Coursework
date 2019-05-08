@@ -3,6 +3,7 @@
 #include <time.h>
 #include "mazegen.h"
 #include "mazeotput.h"
+#include "pathfinder.h"
 
 int main(int argc, char *argv[])
 {
@@ -29,6 +30,15 @@ int main(int argc, char *argv[])
 	//output_PNG(mazeArray, &maze_par, "test.png");
 
 	outputRoadsLog(&maze_par);
+
+	
+
+
+	ROAD_NODE * path = NULL; 
+
+
+	find_path(&path,&maze_par,1,6,1);
+	printPath(path);
 
 	//printf_s("%d\n", maze_par.rooms_quantity);
 	//printf_s("%d\n", maze_par.max_quantity_on_x);
