@@ -19,6 +19,11 @@ typedef struct room
 	unsigned int LN_N = 0;
 	unsigned int RN_N = 0;
 
+	unsigned char UN_R:1;
+	unsigned char BN_R:1;
+	unsigned char LN_R:1;
+	unsigned char RN_R:1;
+
 	unsigned int with_road;
 
 

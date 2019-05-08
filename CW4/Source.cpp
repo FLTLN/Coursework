@@ -9,11 +9,11 @@ int main(int argc, char *argv[])
 	srand(time(NULL));
 	PAR maze_par;
 
-	maze_par.W = 50;
-	maze_par.H = 50;
+	maze_par.W = 40;
+	maze_par.H = 55;
 
-	maze_par.max_W = 10;
-	maze_par.max_H = 10;
+	maze_par.max_W = 15;
+	maze_par.max_H = 15;
 
 
 	create_Rooms_List(&maze_par); //Create list with rooms courners
@@ -26,7 +26,9 @@ int main(int argc, char *argv[])
 
 
 	output_TXT(mazeArray, &maze_par, "maze.txt");
-	output_PNG(mazeArray, &maze_par, "test.png");
+	//output_PNG(mazeArray, &maze_par, "test.png");
+
+	outputRoadsLog(&maze_par);
 
 	//printf_s("%d\n", maze_par.rooms_quantity);
 	//printf_s("%d\n", maze_par.max_quantity_on_x);
