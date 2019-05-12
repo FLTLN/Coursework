@@ -21,26 +21,20 @@ int main(int argc, char *argv[])
 
 	link_Rooms(&maze_par); //Linking rooms with their neihbourhoods
 
-	//createMazeFile(&maze_par, "maze.txt");
+	ROAD_NODE * path = NULL;
+
+	createRoadsMap(&maze_par);
+	outputRoadsLog(&maze_par);
+	find_path(&path, &maze_par, 1, 6, 1);
+	printPath(path);
+
+	createPathes(&maze_par);
+
 
 	char * mazeArray = create_Maze_Array(&maze_par);
 
 
 	output_TXT(mazeArray, &maze_par, "maze.txt");
-	//output_PNG(mazeArray, &maze_par, "test.png");
 
-	outputRoadsLog(&maze_par);
-
-	
-
-
-	ROAD_NODE * path = NULL; 
-
-
-	find_path(&path,&maze_par,1,6,1);
-	printPath(path);
-
-	//printf_s("%d\n", maze_par.rooms_quantity);
-	//printf_s("%d\n", maze_par.max_quantity_on_x);
 }
 
