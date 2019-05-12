@@ -5,6 +5,8 @@ typedef struct point
 {
 	unsigned int x;
 	unsigned int y;
+
+	point * next_point;
 }POINT;
 
 typedef struct room
@@ -24,9 +26,15 @@ typedef struct room
 	unsigned char LN_R:1;
 	unsigned char RN_R:1;
 
-	unsigned int with_road;
-	unsigned int not_wisited;
+	POINT * U_road;
+	POINT * B_road;
+	POINT * L_road;
+	POINT * R_road;
 
+	unsigned int with_road:1;
+	unsigned int not_wisited:1;
+	unsigned int is_road : 1;
+	unsigned int is_false_road : 1;
 
 	room * next_room;
 
@@ -52,7 +60,10 @@ typedef struct par
 void link_Rooms(PAR * par);
 void digRoads(PAR * par, char * mazeArray, POINT from, POINT to);
 ROOM * findRoom(ROOM * rooms, unsigned int number);
-void createRoads(POINT * from, POINT * to, ROOM * rooms, ROOM * next_room);
+void link_Road(ROOM * rooms, ROOM * next_room);
+void createRoadsMap(PAR * where);
+void createPathes(PAR * where_in);
+POINT * createSingleRoad(ROOM * from_room, ROOM * to_room);
 
 //Refactored Functions:
 
