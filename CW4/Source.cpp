@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
 	maze_par.W = 40;
 	maze_par.H = 55;
 
+
 	maze_par.max_W = 15;
 	maze_par.max_H = 15;
 
@@ -35,6 +36,7 @@ int main(int argc, char *argv[])
 
 
 	output_TXT(mazeArray, &maze_par, "maze.txt");
+	output_PNG(mazeArray, &maze_par, "rooms.png");
 
 }
 
