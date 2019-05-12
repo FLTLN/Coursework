@@ -34,6 +34,7 @@ typedef struct room
 	unsigned int with_road:1;
 	unsigned int not_wisited:1;
 	unsigned int is_road : 1;
+	unsigned int is_false_road : 1;
 
 	room * next_room;
 

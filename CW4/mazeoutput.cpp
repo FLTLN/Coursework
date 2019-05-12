@@ -79,7 +79,7 @@ void output_PNG(char * mazeArray, PAR * par, const char * name)
 		*(data + i + 1) = 0;
 		*(data + i + 2) = 0;
 
-		//printf_s("%c\n", mazeArray[i / 3]);
+		//printf_s("%c\n", mazeArray[j]);
 
 		if (mazeArray[j] != '#')
 		{
@@ -87,6 +87,20 @@ void output_PNG(char * mazeArray, PAR * par, const char * name)
 			*(data + i + 1) = 255;
 			*(data + i + 2) = 255;
 		}
+
+		if (mazeArray[j] == '+')
+		{
+			*(data + i) = 255;
+			*(data + i + 1) = 100;
+			*(data + i + 2) = 100;
+		}
+		if (mazeArray[j] == 'F')
+		{
+			*(data + i) = 100;
+			*(data + i + 1) = 100;
+			*(data + i + 2) = 255;
+		}
+
 		j++;
 	}
 
