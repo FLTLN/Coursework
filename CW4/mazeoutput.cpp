@@ -185,3 +185,33 @@ void output_PNG_HQ(char * mazeArray, PAR * par, const char * name)
 
 	fclose(fp);
 }
+
+
+void outputRoadsLog(PAR * par)
+{
+	ROOM * rooms = par->rooms_courners_list;
+
+	while (rooms)
+	{
+		printf_s("ROOM NUMBER %d HAS ROADS WITH\n", rooms->number);
+
+		if (rooms->BN_R)
+		{
+			printf_s(" ROOM %d  B\n\n", rooms->BN_N);
+		}
+		if (rooms->UN_R)
+		{
+			printf_s(" ROOM %d  U\n\n", rooms->UN_N);
+		}
+		if (rooms->LN_R)
+		{
+			printf_s(" ROOM %d  L\n\n", rooms->LN_N);
+		}
+		if (rooms->RN_R)
+		{
+			printf_s(" ROOM %d  R\n\n", rooms->RN_N);
+		}
+	
+		rooms = rooms->next_room;
+	}
+}

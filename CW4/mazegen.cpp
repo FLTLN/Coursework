@@ -20,6 +20,8 @@ char * create_Maze_Array(PAR * par)
 
 		ROOM * rooms = par->rooms_courners_list;
 
+		char number = '6';
+
 		while (rooms)
 		{
 
@@ -31,6 +33,9 @@ char * create_Maze_Array(PAR * par)
 				}
 
 			}
+			*(mazeArray + (rooms->up_courner.y + 1)* par->H + rooms->up_courner.x + 1) = number;
+			number--;
+
 			rooms = rooms->next_room;
 		}
 
@@ -224,7 +229,7 @@ void link_Rooms(PAR * par)
 		}
 		else room->LN_N = 0;
 
-		if (room->number + par->max_quantity_on_x < par->rooms_quantity)
+		if (room->number + par->max_quantity_on_x <= par->rooms_quantity)
 		{
 			room->BN_N = room->number + par->max_quantity_on_x;
 		}
@@ -237,6 +242,13 @@ void link_Rooms(PAR * par)
 		else room->UN_N = 0;
 
 		room->with_road = 0;
+
+		room->UN_R = 0;
+		room->BN_R = 0;
+		room->RN_R = 0;
+		room->LN_R = 0;
+
+		room->not_wisited = 1;
 
 		printf_s("room %d linked with:\n", room->number);
 		printf_s("room %d as a right neihbour\n", room->LN_N);
@@ -306,7 +318,27 @@ void createRoads(POINT * from, POINT * to, ROOM * rooms, ROOM * next_room)
 
 	rooms->with_road = 1;
 	next_room->with_road = 1;
-}
 
+	if (rooms->UN_N == next_room->number)
+	{
+		rooms->UN_R = 1;
+		next_room->BN_R = 1;
+	}
+	if (rooms->BN_N == next_room->number)
+	{
+		rooms->BN_R = 1;
+		next_room->UN_R = 1;
+	}
+	if (rooms->LN_N == next_room->number)
+	{
+		rooms->LN_R = 1;
+		next_room->RN_R = 1;
+	}
+	if (rooms->RN_N == next_room->number)
+	{
+		rooms->RN_R = 1;
+		next_room->LN_R = 1;
+	}
+}
 
 
