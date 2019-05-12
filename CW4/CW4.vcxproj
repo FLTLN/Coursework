@@ -102,6 +102,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -118,12 +121,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="destroy.cpp" />
     <ClCompile Include="mazegen.cpp" />
     <ClCompile Include="mazeoutput.cpp" />
     <ClCompile Include="pathfinder.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="destroy.h" />
     <ClInclude Include="mazegen.h" />
     <ClInclude Include="mazeotput.h" />
     <ClInclude Include="pathfinder.h" />

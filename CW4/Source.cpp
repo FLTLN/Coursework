@@ -4,6 +4,7 @@
 #include "mazegen.h"
 #include "mazeotput.h"
 #include "pathfinder.h"
+#include "destroy.h"
 
 int main(int argc, char *argv[])
 {
@@ -37,6 +38,8 @@ int main(int argc, char *argv[])
 
 	//output_TXT(mazeArray, &maze_par, "maze.txt");
 	output_PNG(mazeArray, &maze_par, "rooms.png");
+
+	destroy_maze(&maze_par);
 
 }
 
