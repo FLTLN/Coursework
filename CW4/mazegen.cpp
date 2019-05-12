@@ -24,41 +24,6 @@ char * create_Maze_Array(PAR * par)
 
 		while (rooms)
 		{
-			if (!rooms->is_road)
-			{
-				for (i = 0; i < rooms->down_courner.y - rooms->up_courner.y; i++)
-				{
-					for (j = 0; j < rooms->down_courner.x - rooms->up_courner.x; j++)
-					{
-						*(mazeArray + (i + rooms->up_courner.y)* par->H + j + rooms->up_courner.x) = ' ';
-					}
-
-				}
-			}
-			else if(rooms->is_false_road)
-			{
-				for (i = 0; i < rooms->down_courner.y - rooms->up_courner.y; i++)
-				{
-					for (j = 0; j < rooms->down_courner.x - rooms->up_courner.x; j++)
-					{
-						*(mazeArray + (i + rooms->up_courner.y)* par->H + j + rooms->up_courner.x) = 'F';
-					}
-
-				}
-			}else 
-			{
-				for (i = 0; i < rooms->down_courner.y - rooms->up_courner.y; i++)
-				{
-					for (j = 0; j < rooms->down_courner.x - rooms->up_courner.x; j++)
-					{
-						*(mazeArray + (i + rooms->up_courner.y)* par->H + j + rooms->up_courner.x) = '+';
-					}
-
-				}
-			}
-			//*(mazeArray + (rooms->up_courner.y + 1)* par->H + rooms->up_courner.x + 1) = number;
-			//number--;
-
 			if (rooms->B_road)
 			{
 				POINT * road = rooms->B_road;
@@ -68,6 +33,14 @@ char * create_Maze_Array(PAR * par)
 					while (road)
 					{
 						*(mazeArray + road->y*par->H + road->x) = '+';
+						road = road->next_point;
+					}
+				}
+				else if (((rooms->is_road) | (rooms->is_false_road)) && ((findRoom(par->rooms_courners_list, rooms->BN_N)->is_road) | (findRoom(par->rooms_courners_list, rooms->BN_N)->is_false_road)))
+				{
+					while (road)
+					{
+						*(mazeArray + road->y*par->H + road->x) = 'F';
 						road = road->next_point;
 					}
 				}
@@ -89,6 +62,14 @@ char * create_Maze_Array(PAR * par)
 					while (road)
 					{
 						*(mazeArray + road->y*par->H + road->x) = '+';
+						road = road->next_point;
+					}
+				}
+				else if (((rooms->is_road) | (rooms->is_false_road)) && ((findRoom(par->rooms_courners_list, rooms->UN_N)->is_road) | (findRoom(par->rooms_courners_list, rooms->UN_N)->is_false_road)))
+				{
+					while (road)
+					{
+						*(mazeArray + road->y*par->H + road->x) = 'F';
 						road = road->next_point;
 					}
 				}
@@ -114,6 +95,14 @@ char * create_Maze_Array(PAR * par)
 						road = road->next_point;
 					}
 				}
+				else if (((rooms->is_road) | (rooms->is_false_road)) && ((findRoom(par->rooms_courners_list, rooms->LN_N)->is_road) | (findRoom(par->rooms_courners_list, rooms->LN_N)->is_false_road)))
+				{
+					while (road)
+					{
+						*(mazeArray + road->y*par->H + road->x) = 'F';
+						road = road->next_point;
+					}
+				}
 				else
 				{
 					while (road)
@@ -135,6 +124,14 @@ char * create_Maze_Array(PAR * par)
 						road = road->next_point;
 					}
 				}
+				else if (((rooms->is_road) | (rooms->is_false_road)) && ((findRoom(par->rooms_courners_list, rooms->RN_N)->is_road) | (findRoom(par->rooms_courners_list, rooms->RN_N)->is_false_road)))
+				{
+					while (road)
+					{
+						*(mazeArray + road->y*par->H + road->x) = 'F';
+						road = road->next_point;
+					}
+				}
 				else
 				{
 					while (road)
@@ -142,6 +139,40 @@ char * create_Maze_Array(PAR * par)
 						*(mazeArray + road->y*par->H + road->x) = ' ';
 						road = road->next_point;
 					}
+				}
+			}
+
+			if (!rooms->is_road && !(rooms->is_false_road))
+			{
+				for (i = 0; i < rooms->down_courner.y - rooms->up_courner.y; i++)
+				{
+					for (j = 0; j < rooms->down_courner.x - rooms->up_courner.x; j++)
+					{
+						*(mazeArray + (i + rooms->up_courner.y)* par->H + j + rooms->up_courner.x) = ' ';
+					}
+
+				}
+			}
+			else if (rooms->is_false_road)
+			{
+				for (i = 0; i < rooms->down_courner.y - rooms->up_courner.y; i++)
+				{
+					for (j = 0; j < rooms->down_courner.x - rooms->up_courner.x; j++)
+					{
+						*(mazeArray + (i + rooms->up_courner.y)* par->H + j + rooms->up_courner.x) = 'F';
+					}
+
+				}
+			}
+			else
+			{
+				for (i = 0; i < rooms->down_courner.y - rooms->up_courner.y; i++)
+				{
+					for (j = 0; j < rooms->down_courner.x - rooms->up_courner.x; j++)
+					{
+						*(mazeArray + (i + rooms->up_courner.y)* par->H + j + rooms->up_courner.x) = '+';
+					}
+
 				}
 			}
 

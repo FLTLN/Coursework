@@ -54,7 +54,8 @@ void find_path(ROAD_NODE ** path,PAR * where, int from, int to,int refresh)
 		}
 		else
 		{
-			(*path)->room->is_false_road = 1;
+			//(*path)->room->is_false_road = 1;
+			findRoom(where->rooms_courners_list, (*path)->room->number)->is_false_road = 1;
 			ROAD_NODE * free_me = (*path);
 			(*path) = (*path)->prev_room;
 			free(free_me);
