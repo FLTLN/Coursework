@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 	printPath(path);
 
 	createPathes(&maze_par);
-
+	link_Path(path);
 
 	char * mazeArray = create_Maze_Array(&maze_par);
 

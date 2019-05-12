@@ -80,3 +80,14 @@ void printPath(ROAD_NODE * path_pointer)
 
 
 }
+
+void link_Path(ROAD_NODE * path_in)
+{
+	ROAD_NODE * path = path_in;
+	while (path)
+	{
+		path->room->is_road = 1;
+
+		path = path->prev_room;
+	}
+}

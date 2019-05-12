@@ -24,14 +24,27 @@ char * create_Maze_Array(PAR * par)
 
 		while (rooms)
 		{
-
-			for (i = 0; i < rooms->down_courner.y - rooms->up_courner.y; i++)
+			if (!rooms->is_road)
 			{
-				for (j = 0; j < rooms->down_courner.x - rooms->up_courner.x; j++)
+				for (i = 0; i < rooms->down_courner.y - rooms->up_courner.y; i++)
 				{
-					*(mazeArray + (i + rooms->up_courner.y)* par->H + j + rooms->up_courner.x) = ' ';
-				}
+					for (j = 0; j < rooms->down_courner.x - rooms->up_courner.x; j++)
+					{
+						*(mazeArray + (i + rooms->up_courner.y)* par->H + j + rooms->up_courner.x) = ' ';
+					}
 
+				}
+			}
+			else
+			{
+				for (i = 0; i < rooms->down_courner.y - rooms->up_courner.y; i++)
+				{
+					for (j = 0; j < rooms->down_courner.x - rooms->up_courner.x; j++)
+					{
+						*(mazeArray + (i + rooms->up_courner.y)* par->H + j + rooms->up_courner.x) = '-';
+					}
+
+				}
 			}
 			//*(mazeArray + (rooms->up_courner.y + 1)* par->H + rooms->up_courner.x + 1) = number;
 			//number--;
@@ -40,40 +53,85 @@ char * create_Maze_Array(PAR * par)
 			{
 				POINT * road = rooms->B_road;
 
-				while (road)
+				if ((rooms->is_road) && (findRoom(par->rooms_courners_list, rooms->BN_N)->is_road))
 				{
-					*(mazeArray + road->y*par->H + road->x) = ' ';
-					road = road->next_point;
+					while (road)
+					{
+						*(mazeArray + road->y*par->H + road->x) = '-';
+						road = road->next_point;
+					}
+				}
+				else
+				{
+					while (road)
+					{
+						*(mazeArray + road->y*par->H + road->x) = ' ';
+						road = road->next_point;
+					}
 				}
 			}
 			if (rooms->U_road)
 			{
 				POINT * road = rooms->U_road;
 
-				while (road)
+				if((rooms->is_road) && (findRoom(par->rooms_courners_list,rooms->UN_N)->is_road))
 				{
-					*(mazeArray + road->y*par->H + road->x) = ' ';
-					road = road->next_point;
+					while (road)
+					{
+						*(mazeArray + road->y*par->H + road->x) = '-';
+						road = road->next_point;
+					}
 				}
+				else
+				{
+					while (road)
+					{
+						*(mazeArray + road->y*par->H + road->x) = ' ';
+						road = road->next_point;
+					}
+				}
+				
 			}
 			if (rooms->L_road)
 			{
 				POINT * road = rooms->L_road;
 
-				while (road)
+				if ((rooms->is_road) && (findRoom(par->rooms_courners_list, rooms->LN_N)->is_road))
 				{
-					*(mazeArray + road->y*par->H + road->x) = ' ';
-					road = road->next_point;
+					while (road)
+					{
+						*(mazeArray + road->y*par->H + road->x) = '-';
+						road = road->next_point;
+					}
+				}
+				else
+				{
+					while (road)
+					{
+						*(mazeArray + road->y*par->H + road->x) = ' ';
+						road = road->next_point;
+					}
 				}
 			}
 			if (rooms->R_road)
 			{
 				POINT * road = rooms->R_road;
 
-				while (road)
+				if ((rooms->is_road) && (findRoom(par->rooms_courners_list, rooms->RN_N)->is_road))
 				{
-					*(mazeArray + road->y*par->H + road->x) = ' ';
-					road = road->next_point;
+					while (road)
+					{
+						*(mazeArray + road->y*par->H + road->x) = '-';
+						road = road->next_point;
+					}
+				}
+				else
+				{
+					while (road)
+					{
+						*(mazeArray + road->y*par->H + road->x) = ' ';
+						road = road->next_point;
+					}
 				}
 			}
 
@@ -197,6 +255,7 @@ void link_Rooms(PAR * par)
 		room->R_road = NULL;
 
 		room->not_wisited = 1;
+		room->is_road = 0;
 
 		printf_s("room %d linked with:\n", room->number);
 		printf_s("room %d as a right neihbour\n", room->LN_N);

@@ -18,6 +18,7 @@ typedef struct road_node
 
 void find_path(ROAD_NODE ** path, PAR * where, int from, int to, int refresh);
 void printPath(ROAD_NODE * path_pointer);
+void link_Path(ROAD_NODE * path_in);
 
 
 #endif // !_PATHFINDER__

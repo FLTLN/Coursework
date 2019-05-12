@@ -31,9 +31,9 @@ typedef struct room
 	POINT * L_road;
 	POINT * R_road;
 
-	unsigned int with_road;
-	unsigned int not_wisited;
-
+	unsigned int with_road:1;
+	unsigned int not_wisited:1;
+	unsigned int is_road : 1;
 
 	room * next_room;
 
