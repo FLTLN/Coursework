@@ -1,8 +1,7 @@
-#include "mazegen.h"
-
 #ifndef _PATHFINDER__
 #define _PATHFINDER__
 
+#include "mazegen.h"
 
 typedef struct road_node
 {
@@ -17,8 +16,8 @@ typedef struct road_node
 }ROAD_NODE;
 
 void find_path(ROAD_NODE ** path, PAR * where, int from, int to, int refresh);
-void printPath(ROAD_NODE * path_pointer);
-void link_Path(ROAD_NODE * path_in);
+void print_path(ROAD_NODE * path_pointer);
+void create_path(ROAD_NODE * path_in);
 
 
 #endif // !_PATHFINDER__

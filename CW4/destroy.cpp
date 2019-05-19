@@ -22,8 +22,6 @@ void destroy_rooms(ROOM * room)
 
 void destroy_maze(PAR * maze)
 {
-	printf_s("<DES> START\n");
-
 	ROOM * rooms = maze->rooms_courners_list;
 
 	while (rooms)
@@ -32,31 +30,34 @@ void destroy_maze(PAR * maze)
 		if (rooms->U_road)
 		{
 			destroy_roads(rooms->U_road);
-			printf_s("<DES> ROOM %d U ROAD DESTROYED\n", rooms->number);
 		}
 
 		if (rooms->B_road)
 		{
 			destroy_roads(rooms->B_road);
-			printf_s("<DES> ROOM %d B ROAD DESTROYED\n", rooms->number);
 		}
 
 		if (rooms->L_road)
 		{
 			destroy_roads(rooms->L_road);
-			printf_s("<DES> ROOM %d L ROAD DESTROYED\n", rooms->number);
 		}
 
 		if (rooms->R_road)
 		{
 			destroy_roads(rooms->R_road);
-			printf_s("<DES> ROOM %d R ROAD DESTROYED\n", rooms->number);
 		}
 
 		rooms = rooms->next_room;
 	}
 
 	destroy_rooms(maze->rooms_courners_list);
+}
 
-	printf_s("<DES> DONE\n");
+void destroy_path(ROAD_NODE * room)
+{
+	if (room)
+	{
+		destroy_path(room->prev_room);
+		free(room);
+	}
 }

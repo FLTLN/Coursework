@@ -126,10 +126,12 @@
     <ClCompile Include="mazeoutput.cpp" />
     <ClCompile Include="pathfinder.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="maze.cpp" />
     <ClCompile Include="user.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="destroy.h" />
+    <ClInclude Include="maze.h" />
     <ClInclude Include="user.h" />
     <ClInclude Include="mazegen.h" />
     <ClInclude Include="mazeotput.h" />

@@ -5,9 +5,8 @@
 
 void output_TXT(char * mazeArray, PAR * par, const char * name);
 void output_PNG(char * mazeArray, PAR * par, const char * name);
-void output_PNG_HQ(char * mazeArray, PAR * par, const char * name);
 
-void outputRoadsLog(PAR * par);
+void output_roads_log(PAR * par);
 
 #endif // !__MAZEOUTPUT_
 

@@ -5,7 +5,9 @@
 #include <stdlib.h>
 #include <time.h>
 
-char * create_Maze_Array(PAR * par)
+POINT * createSingleRoad(ROOM * from_room, ROOM * to_room);
+
+char * create_maze_array(PAR * par)
 {
 	char * mazeArray = (char *)malloc(par->H*par->W * sizeof(char));
 	char newline[] = { "\n" };
@@ -20,15 +22,13 @@ char * create_Maze_Array(PAR * par)
 
 		ROOM * rooms = par->rooms_courners_list;
 
-		//char number = '6';
-
 		while (rooms)
 		{
 			if (rooms->B_road)
 			{
 				POINT * road = rooms->B_road;
 
-				if ((rooms->is_road) && (findRoom(par->rooms_courners_list, rooms->BN_N)->is_road))
+				if ((rooms->is_road) && (find_room(par->rooms_courners_list, rooms->BN_N)->is_road))
 				{
 					while (road)
 					{
@@ -36,7 +36,7 @@ char * create_Maze_Array(PAR * par)
 						road = road->next_point;
 					}
 				}
-				else if (((rooms->is_road) | (rooms->is_false_road)) && ((findRoom(par->rooms_courners_list, rooms->BN_N)->is_road) | (findRoom(par->rooms_courners_list, rooms->BN_N)->is_false_road)))
+				else if (((rooms->is_road) | (rooms->is_false_road)) && ((find_room(par->rooms_courners_list, rooms->BN_N)->is_road) | (find_room(par->rooms_courners_list, rooms->BN_N)->is_false_road)))
 				{
 					while (road)
 					{
@@ -57,7 +57,7 @@ char * create_Maze_Array(PAR * par)
 			{
 				POINT * road = rooms->U_road;
 
-				if((rooms->is_road) && (findRoom(par->rooms_courners_list,rooms->UN_N)->is_road))
+				if((rooms->is_road) && (find_room(par->rooms_courners_list,rooms->UN_N)->is_road))
 				{
 					while (road)
 					{
@@ -65,7 +65,7 @@ char * create_Maze_Array(PAR * par)
 						road = road->next_point;
 					}
 				}
-				else if (((rooms->is_road) | (rooms->is_false_road)) && ((findRoom(par->rooms_courners_list, rooms->UN_N)->is_road) | (findRoom(par->rooms_courners_list, rooms->UN_N)->is_false_road)))
+				else if (((rooms->is_road) | (rooms->is_false_road)) && ((find_room(par->rooms_courners_list, rooms->UN_N)->is_road) | (find_room(par->rooms_courners_list, rooms->UN_N)->is_false_road)))
 				{
 					while (road)
 					{
@@ -87,7 +87,7 @@ char * create_Maze_Array(PAR * par)
 			{
 				POINT * road = rooms->L_road;
 
-				if ((rooms->is_road) && (findRoom(par->rooms_courners_list, rooms->LN_N)->is_road))
+				if ((rooms->is_road) && (find_room(par->rooms_courners_list, rooms->LN_N)->is_road))
 				{
 					while (road)
 					{
@@ -95,7 +95,7 @@ char * create_Maze_Array(PAR * par)
 						road = road->next_point;
 					}
 				}
-				else if (((rooms->is_road) | (rooms->is_false_road)) && ((findRoom(par->rooms_courners_list, rooms->LN_N)->is_road) | (findRoom(par->rooms_courners_list, rooms->LN_N)->is_false_road)))
+				else if (((rooms->is_road) | (rooms->is_false_road)) && ((find_room(par->rooms_courners_list, rooms->LN_N)->is_road) | (find_room(par->rooms_courners_list, rooms->LN_N)->is_false_road)))
 				{
 					while (road)
 					{
@@ -116,7 +116,7 @@ char * create_Maze_Array(PAR * par)
 			{
 				POINT * road = rooms->R_road;
 
-				if ((rooms->is_road) && (findRoom(par->rooms_courners_list, rooms->RN_N)->is_road))
+				if ((rooms->is_road) && (find_room(par->rooms_courners_list, rooms->RN_N)->is_road))
 				{
 					while (road)
 					{
@@ -124,7 +124,7 @@ char * create_Maze_Array(PAR * par)
 						road = road->next_point;
 					}
 				}
-				else if (((rooms->is_road) | (rooms->is_false_road)) && ((findRoom(par->rooms_courners_list, rooms->RN_N)->is_road) | (findRoom(par->rooms_courners_list, rooms->RN_N)->is_false_road)))
+				else if (((rooms->is_road) | (rooms->is_false_road)) && ((find_room(par->rooms_courners_list, rooms->RN_N)->is_road) | (find_room(par->rooms_courners_list, rooms->RN_N)->is_false_road)))
 				{
 					while (road)
 					{
@@ -193,14 +193,12 @@ void add(ROOM ** rooms, ROOM * room)
 	}
 }
 
-
-void create_Rooms_List(PAR * par)
+void create_rooms_list(PAR * par)
 {
 	int i, j, zone_courner_x, zone_courner_y;
 	ROOM * rooms = NULL;
 	ROOM * room;
 	int rooms_quantity = 1;
-
 
 	for (i = 0; i < (par->H / par->max_H); i++)
 	{
@@ -244,21 +242,15 @@ void create_Rooms_List(PAR * par)
 		par->rooms_quantity = rooms_quantity - 1;
 		par->rooms_courners_list = rooms;
 		par->max_quantity_on_x = par->W / par->max_W;
-		printf_s("CREATE ROOMS DONE\n");
-
 	}
 }
 
-void link_Rooms(PAR * par)
+void link_rooms(PAR * par)
 {
 	ROOM * room = par->rooms_courners_list;
 
-	printf_s(">>start link rooms\n\n");
-
 	while (room)
 	{
-		printf_s("link room %d \n\n", room->number);
-
 		if (room->number % par->max_quantity_on_x != 0)
 		{
 			room->RN_N = room->number + 1;
@@ -299,55 +291,11 @@ void link_Rooms(PAR * par)
 		room->is_road = 0;
 		room->is_false_road = 0;
 
-		printf_s("room %d linked with:\n", room->number);
-		printf_s("room %d as a right neihbour\n", room->LN_N);
-		printf_s("room %d as a left neihbour\n", room->RN_N);
-		printf_s("room %d as a bot neihbour\n", room->UN_N);
-		printf_s("room %d as a up neihbour\n\n", room->BN_N);
-
 		room = room->next_room;
 	}
 }
 
-void digRoads(PAR * par, char * mazeArray, POINT from, POINT to)
-{
-
-	if (from.x < to.x)
-	{
-		while (from.x < to.x)
-		{
-			*(mazeArray + from.y*par->H + from.x) = ' ';
-			from.x++;
-		}
-	}
-	else
-	{
-		while (from.x > to.x)
-		{
-			*(mazeArray + from.y*par->H + from.x) = ' ';
-			from.x--;
-		}
-	}
-
-	if (from.y < to.y)
-	{
-		while (from.y < to.y)
-		{
-			*(mazeArray + from.y*par->H + from.x) = ' ';
-			from.y++;
-		}
-	}
-	else
-	{
-		while (from.y > to.y)
-		{
-			*(mazeArray + from.y*par->H + from.x) = ' ';
-			from.y--;
-		}
-	}
-}
-
-ROOM * findRoom(ROOM * rooms_in, unsigned int number)
+ROOM * find_room(ROOM * rooms_in, unsigned int number)
 {
 	ROOM * rooms = rooms_in;
 	if (number == 0) return NULL;
@@ -385,7 +333,7 @@ void link_Road(ROOM * rooms, ROOM * next_room)
 	}
 }
 
-void createRoadsMap(PAR * where)
+void create_roads_map(PAR * where)
 {
 	unsigned int i, j;
 	ROOM * rooms = where->rooms_courners_list;
@@ -398,40 +346,29 @@ void createRoadsMap(PAR * where)
 	int roomsWitsRoadsQuantity = 0;
 	to_room = NULL;
 
-	from_room = findRoom(where->rooms_courners_list, rand() % where->rooms_quantity + 1);
-
-	if (from_room)
-	{
-		printf_s("<MAP> FROM ROOM %d\n", from_room->number);
-	}
-
+	from_room = find_room(where->rooms_courners_list, rand() % where->rooms_quantity + 1);
 
 	do
 	{
 		switch (rand() % 4 + 1)
 		{
 		case 1:
-			to_room = findRoom(where->rooms_courners_list, from_room->UN_N);
+			to_room = find_room(where->rooms_courners_list, from_room->UN_N);
 			break;
 		case 2:
-			to_room = findRoom(where->rooms_courners_list, from_room->BN_N);
+			to_room = find_room(where->rooms_courners_list, from_room->BN_N);
 			break;
 		case 3:
-			to_room = findRoom(where->rooms_courners_list, from_room->LN_N);
+			to_room = find_room(where->rooms_courners_list, from_room->LN_N);
 			break;
 		case 4:
-			to_room = findRoom(where->rooms_courners_list, from_room->RN_N);
+			to_room = find_room(where->rooms_courners_list, from_room->RN_N);
 			break;
 
 		default:
 			break;
 		}
 	} while (!to_room);
-
-	if (to_room)
-	{
-		printf_s("<MAP> TO ROOM %d\n", to_room->number);
-	}
 
 	link_Road(from_room, to_room);
 	roomsWitsRoadsQuantity = 2;
@@ -440,7 +377,7 @@ void createRoadsMap(PAR * where)
 	{
 		do
 		{
-			from_room = findRoom(where->rooms_courners_list, rand() % where->rooms_quantity + 1);
+			from_room = find_room(where->rooms_courners_list, rand() % where->rooms_quantity + 1);
 
 			do
 			{
@@ -448,16 +385,16 @@ void createRoadsMap(PAR * where)
 				switch (rand() % 4 + 1)
 				{
 				case 1:
-					to_room = findRoom(where->rooms_courners_list, from_room->UN_N);
+					to_room = find_room(where->rooms_courners_list, from_room->UN_N);
 					break;
 				case 2:
-					to_room = findRoom(where->rooms_courners_list, from_room->BN_N);
+					to_room = find_room(where->rooms_courners_list, from_room->BN_N);
 					break;
 				case 3:
-					to_room = findRoom(where->rooms_courners_list, from_room->LN_N);
+					to_room = find_room(where->rooms_courners_list, from_room->LN_N);
 					break;
 				case 4:
-					to_room = findRoom(where->rooms_courners_list, from_room->RN_N);
+					to_room = find_room(where->rooms_courners_list, from_room->RN_N);
 					break;
 
 				default:
@@ -468,24 +405,13 @@ void createRoadsMap(PAR * where)
 
 
 		} while (!((to_room->with_road) && (!from_room->with_road)));
-
-		if (from_room)
-		{
-			printf_s("<MAP> FROM ROOM %d\n", from_room->number);
-		}
-
-		if (to_room)
-		{
-			printf_s("<MAP> TO ROOM %d\n", to_room->number);
-		}
-
 		link_Road(from_room, to_room);
 
 		roomsWitsRoadsQuantity++;
 	}
 }
 
-void createPathes(PAR * where_in)
+void create_roads(PAR * where_in)
 {
 	ROOM * rooms = where_in->rooms_courners_list;
 	while (rooms)
@@ -493,19 +419,19 @@ void createPathes(PAR * where_in)
 
 		if ((rooms->BN_R) && (rooms->number > rooms->BN_N))
 		{
-			rooms->B_road = createSingleRoad(rooms,findRoom(where_in->rooms_courners_list,rooms->BN_N));
+			rooms->B_road = createSingleRoad(rooms,find_room(where_in->rooms_courners_list,rooms->BN_N));
 		}
 		if ((rooms->UN_R) && (rooms->number > rooms->UN_N))
 		{
-			rooms->U_road = createSingleRoad(rooms,findRoom(where_in->rooms_courners_list,rooms->UN_N));
+			rooms->U_road = createSingleRoad(rooms,find_room(where_in->rooms_courners_list,rooms->UN_N));
 		}
 		if ((rooms->LN_R) && (rooms->number > rooms->LN_N))
 		{
-			rooms->L_road = createSingleRoad(rooms,findRoom(where_in->rooms_courners_list,rooms->LN_N));
+			rooms->L_road = createSingleRoad(rooms,find_room(where_in->rooms_courners_list,rooms->LN_N));
 		}
 		if ((rooms->RN_R) && (rooms->number > rooms->RN_N))
 		{
-			rooms->R_road = createSingleRoad(rooms,findRoom(where_in->rooms_courners_list,rooms->RN_N));
+			rooms->R_road = createSingleRoad(rooms,find_room(where_in->rooms_courners_list,rooms->RN_N));
 		}
 
 		rooms = rooms->next_room;
@@ -528,7 +454,6 @@ POINT * createSingleRoad(ROOM * from_room,ROOM * to_room)
 	{
 		while (from.x < to.x)
 		{
-			//*(mazeArray + from.y*par->H + from.x) = ' ';
 			road_node = (POINT *)malloc(sizeof(POINT));
 			road_node->x = from.x;
 			road_node->y = from.y;
@@ -541,7 +466,6 @@ POINT * createSingleRoad(ROOM * from_room,ROOM * to_room)
 	{
 		while (from.x > to.x)
 		{
-			//*(mazeArray + from.y*par->H + from.x) = ' ';
 			road_node = (POINT *)malloc(sizeof(POINT));
 			road_node->x = from.x;
 			road_node->y = from.y;
@@ -555,7 +479,6 @@ POINT * createSingleRoad(ROOM * from_room,ROOM * to_room)
 	{
 		while (from.y < to.y)
 		{
-			//*(mazeArray + from.y*par->H + from.x) = ' ';
 			road_node = (POINT *)malloc(sizeof(POINT));
 			road_node->x = from.x;
 			road_node->y = from.y;
@@ -568,7 +491,6 @@ POINT * createSingleRoad(ROOM * from_room,ROOM * to_room)
 	{
 		while (from.y > to.y)
 		{
-			//*(mazeArray + from.y*par->H + from.x) = ' ';
 			road_node = (POINT *)malloc(sizeof(POINT));
 			road_node->x = from.x;
 			road_node->y = from.y;
