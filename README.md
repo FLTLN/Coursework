@@ -1,3 +1,2 @@
-# Coursework
-Генерация и прохождение лабиринтов. Курсовая работа, первый курс.
-В этом репозитории нету большей части изменений, так-как я начинал писать курсовую до знакомства с гитом.
+# Maze Generator
+Maze generator and solver. My term paper at the 1nd year of university.
